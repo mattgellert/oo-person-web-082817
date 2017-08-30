@@ -1,27 +1,17 @@
+#commented code is less efficient, kept for review
 require 'pry'
 
 class Person
+  attr_reader :name
+  attr_accessor :bank_account
+  attr_reader :happiness
+  attr_reader :hygiene
+
   def initialize(name = nil, bank_account = 25, happiness = 8, hygiene = 8)
     @name = name
     @bank_account = bank_account
     @happiness = happiness
     @hygiene = hygiene
-
-    def name
-      @name
-    end
-
-    def bank_account
-      @bank_account #attr_accessor :bank_account
-    end
-
-    def bank_account=(new_funds)
-      @bank_account = new_funds
-    end
-
-    def happiness
-      @happiness
-    end
 
     def happiness=(new_happiness)
       if new_happiness > 10
@@ -33,10 +23,6 @@ class Person
      end
    end
 
-   def hygiene
-     @hygiene
-   end
-
    def hygiene=(new_hygiene)
      if new_hygiene > 10
        @hygiene = 10
@@ -46,22 +32,14 @@ class Person
        @hygiene = new_hygiene
      end
    end
-# end
 
    def happy?
-     if @happiness > 7
-       true
-     else
-       false
-     end
+     @happiness > 7 ? true : false
+     #ternary operator
    end
 
    def clean?
-     if @hygiene > 7
-       true
-     else
-       false
-     end
+     @hygiene > 7 ? true : false
    end
 
    def get_paid(salary)
@@ -76,13 +54,11 @@ class Person
 
    def work_out
      self.hygiene -= 3
-     if @hygiene < 0
-       @hygiene = 0
-     end
+     @hygiene = 0 if @hygiene < 0
+
      self.happiness += 2
-     if @happiness > 10
-       @happiness = 10
-     end
+     @happiness = 10 if @happiness > 10
+
      "♪ another one bites the dust ♫"
    end
 
@@ -99,21 +75,32 @@ class Person
    end
 
    def start_conversation(person, topic)
-     if topic == "politics"
-       self.happiness-=2
-       person.happiness-=2
-       'blah blah partisan blah lobbyist'
-     elsif topic == "weather"
-       self.happiness+=1
-       person.happiness+=1
-       'blah blah sun blah rain'
-     else
-       'blah blah blah blah blah'
-     end
+      case topic
+        when "politics"
+          self.happiness-=2
+          person.happiness-=2
+          'blah blah partisan blah lobbyist'
+        when "weather"
+          self.happiness+=1
+          person.happiness+=1
+          'blah blah sun blah rain'
+        else
+          'blah blah blah blah blah'
+      end
    end
+   # METHODS REPLACED WITH MACROS
+   # def bank_account
+   #   @bank_account #attr_accessor :bank_account
+   # end
+   #
+   # def bank_account=(new_funds)
+   #   @bank_account = new_funds
+   # end
+   # def happiness
+   #   @happiness
+   # end
+  #  def hygiene
+  #    @hygiene
+  #  end
  end
 end
-
-# matt = Person.new("Matt")
-# binding.pry
-# puts matt
