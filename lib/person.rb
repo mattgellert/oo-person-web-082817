@@ -1,5 +1,4 @@
 #commented code is less efficient, kept for review
-require 'pry'
 
 class Person
   attr_reader :name
